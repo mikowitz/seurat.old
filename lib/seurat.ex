@@ -1,18 +1,15 @@
 defmodule Seurat do
   @moduledoc """
-  Documentation for `Seurat`.
+  Seurat provides a pure Elixir library for color management and conversion.
+
+  Named for Georges Seurat, whose pointillist style provides an early analogue
+  for pixel-based digital imagery, this library provides the ability to create
+  colors in a number of colorspaces, modify those colors, and convert them
+  between colorspaces.
+
+  The following colorspaces are supported, each of which is described in more
+  detail in its own module:
+
+  * [RGB](`Seurat.Rgb`)
   """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Seurat.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
 end

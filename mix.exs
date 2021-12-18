@@ -8,7 +8,19 @@ defmodule Seurat.MixProject do
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      dialyzer: dialyzer()
+      dialyzer: dialyzer(),
+      docs: [
+        main: Seurat,
+        groups_for_modules: [
+          RGB: [
+            Seurat.Rgb,
+            Seurat.Rgb.Colorspace,
+            Seurat.Rgb.Gamma,
+            Seurat.Rgb.Linear,
+            Seurat.Rgb.SRgb
+          ]
+        ]
+      ]
     ]
   end
 

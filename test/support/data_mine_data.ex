@@ -1,4 +1,6 @@
 defmodule Seurat.DataMineData do
+  # source "https://github.com/Ogeon/palette/blob/master/palette/tests/convert/data_color_mine.csv"
+
   def data_stream do
     "test/support/data_color_mine.csv"
     |> File.stream!()
@@ -28,7 +30,9 @@ defmodule Seurat.DataMineData do
         color: row.color,
         srgb: Seurat.Rgb.SRgb.new(row.rgb_r, row.rgb_g, row.rgb_b),
         hsv: Seurat.Hsv.new(row.hsv_h, row.hsv_s, row.hsv_v),
-        hsl: Seurat.Hsl.new(row.hsl_h, row.hsl_s, row.hsl_l)
+        hsl: Seurat.Hsl.new(row.hsl_h, row.hsl_s, row.hsl_l),
+        cmy: Seurat.Cmy.new(row.cmy_c, row.cmy_m, row.cmy_y),
+        cmyk: Seurat.Cmyk.new(row.cmyk_c, row.cmyk_m, row.cmyk_y, row.cmyk_k)
       }
     end)
   end

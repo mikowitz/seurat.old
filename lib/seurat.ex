@@ -26,4 +26,7 @@ defmodule Seurat do
   def to_hsl(color) do
     Seurat.Conversions.ToHsl.to_hsl(color)
   end
+
+  defdelegate to_cmy(color), to: Seurat.Conversions.ToCmy
+  defdelegate to_cmyk(color), to: Seurat.Conversions.ToCmyk
 end

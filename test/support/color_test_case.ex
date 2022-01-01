@@ -1,6 +1,13 @@
 defmodule Seurat.ColorTestCase do
   use ExUnit.CaseTemplate
 
+  using do
+    quote do
+      use ExUnitProperties
+      import Seurat.ColorTestCase
+    end
+  end
+
   def assert_colors_equal(expected, actual, color, epsilon \\ 0.05) do
     fields = Map.keys(expected) -- [:__struct__, :rgb_model]
 

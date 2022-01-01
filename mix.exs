@@ -9,9 +9,14 @@ defmodule Seurat.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: dialyzer(),
+      elixirc_paths: compiler_paths(Mix.env()),
       docs: [
         main: Seurat,
         groups_for_modules: [
+          Cylindrical: [
+            Seurat.Hsv,
+            Seurat.Hsl
+          ],
           RGB: [
             Seurat.Rgb,
             Seurat.Rgb.Colorspace,
@@ -36,7 +41,9 @@ defmodule Seurat.MixProject do
     [
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.24", only: [:dev, :test], runtime: false},
-      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false}
+      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:nimble_csv, "~> 1.2.0"},
+      {:stream_data, "~> 0.5", only: [:dev, :test]}
     ]
   end
 
@@ -47,4 +54,7 @@ defmodule Seurat.MixProject do
       plt_add_apps: [:ex_unit]
     ]
   end
+
+  defp compiler_paths(:test), do: ["test/support"] ++ compiler_paths(:prod)
+  defp compiler_paths(_), do: ["lib"]
 end

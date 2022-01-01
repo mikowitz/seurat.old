@@ -1,9 +1,11 @@
 defmodule Seurat.Rgb do
   @moduledoc """
+  Modeling and helper functions for RGB color models.
+
   `Seurat` provides models for three different types of RGB colors:
 
   * [`SRgb`](`Seurat.Rgb.SRgb`) - a non-linear RGB used for screen displays and
-    digital media.  The non-linearity accounts for the fact that our eyes are
+    digital media. The non-linearity accounts for the fact that our eyes are
     more sensitive to color variation at low intensities (near black) than at
     high intensities (near white). When people talk about "RGB", this is almost
     always what they mean.
@@ -74,6 +76,7 @@ defmodule Seurat.Rgb do
   alias Seurat.Rgb.{Gamma, Linear, SRgb}
 
   @type color :: Gamma.t() | Linear.t() | SRgb.t()
+  @type model :: Gamma | Linear | SRgb
 
   @doc """
   Creates a linear RGB color from the given tristimulus values

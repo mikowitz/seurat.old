@@ -11,5 +11,19 @@ defmodule Seurat do
   detail in its own module:
 
   * [RGB](`Seurat.Rgb`)
+  * [HSV](`Seurat.Hsv`)
+  * [HSL](`Seurat.Hsl`)
   """
+
+  def to_rgb(color) do
+    Seurat.Conversions.ToRgb.to_rgb(color)
+  end
+
+  def to_hsv(color) do
+    Seurat.Conversions.ToHsv.to_hsv(color)
+  end
+
+  def to_hsl(color) do
+    Seurat.Conversions.ToHsl.to_hsl(color)
+  end
 end

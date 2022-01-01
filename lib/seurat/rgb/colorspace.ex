@@ -39,6 +39,60 @@ defmodule Seurat.Rgb.Colorspace do
 
       @behaviour Seurat.Rgb.Colorspace
 
+      defimpl Seurat.Conversions.ToRgb do
+        def to_rgb(rgb), do: rgb
+      end
+
+      defimpl Seurat.Conversions.ToHsv do
+        def to_hsv(%{red: r, green: g, blue: b, __struct__: rgb_model}) do
+          {x_min, x_max} = Enum.min_max([r, g, b])
+          delta = x_max - x_min
+
+          h =
+            cond do
+              delta == 0 -> 0
+              x_max == r -> 60 * :math.fmod((g - b) / delta, 6)
+              x_max == g -> 60 * ((b - r) / delta + 2)
+              x_max == b -> 60 * ((r - g) / delta + 4)
+            end
+
+          s =
+            case x_max do
+              0.0 -> 0.0
+              _ -> delta / x_max
+            end
+
+          v = x_max
+
+          Seurat.Hsv.new(h, s, v, rgb_model)
+        end
+      end
+
+      defimpl Seurat.Conversions.ToHsl do
+        def to_hsl(%{red: r, green: g, blue: b, __struct__: rgb_model}) do
+          {x_min, x_max} = Enum.min_max([r, g, b])
+          delta = x_max - x_min
+
+          h =
+            cond do
+              delta == 0.0 -> 0.0
+              x_max == r -> 60 * :math.fmod((g - b) / delta, 6)
+              x_max == g -> 60 * ((b - r) / delta + 2)
+              x_max == b -> 60 * ((r - g) / delta + 4)
+            end
+
+          l = (x_max + x_min) / 2
+
+          s =
+            case delta do
+              0.0 -> 0.0
+              _ -> delta / (1 - abs(2 * l - 1))
+            end
+
+          Seurat.Hsl.new(h, s, l, rgb_model)
+        end
+      end
+
       defimpl Inspect do
         import Inspect.Algebra
 

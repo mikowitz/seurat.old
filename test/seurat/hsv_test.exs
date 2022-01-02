@@ -2,8 +2,6 @@ defmodule Seurat.HsvTest do
   use Seurat.ColorTestCase, async: true
   use ExUnitProperties
 
-  import Seurat.ColorTestCase
-
   alias Seurat.Hsv
   alias Seurat.Rgb.Linear
   doctest Seurat.Hsv
@@ -21,7 +19,7 @@ defmodule Seurat.HsvTest do
     end
 
     test "to_rgb" do
-      Seurat.DataMineData.parse()
+      ColorMine.parse()
       |> Enum.map(fn %{color: color, srgb: expected, hsv: hsv} ->
         actual = Seurat.to_rgb(hsv)
 
@@ -30,7 +28,7 @@ defmodule Seurat.HsvTest do
     end
 
     test "to_hsl" do
-      Seurat.DataMineData.parse()
+      ColorMine.parse()
       |> Enum.map(fn %{color: color, hsl: expected, hsv: hsv} ->
         actual = Seurat.to_hsl(hsv)
 

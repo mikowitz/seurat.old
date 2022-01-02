@@ -93,6 +93,22 @@ defmodule Seurat.Rgb.Colorspace do
         end
       end
 
+      defimpl Seurat.Conversions.ToXyz do
+        def to_xyz(rgb) do
+          %{red: r, green: g, blue: b} = Seurat.Rgb.to_linear(rgb)
+
+          x = calculate_color(r, g, b, 0.4124564, 0.3575761, 0.1804375)
+          y = calculate_color(r, g, b, 0.2126729, 0.7151522, 0.0721750)
+          z = calculate_color(r, g, b, 0.0193339, 0.1191920, 0.9503041)
+
+          Seurat.Xyz.new(x, y, z)
+        end
+
+        defp calculate_color(x, y, z, a, b, c) do
+          x * a + y * b + z * c
+        end
+      end
+
       defimpl Inspect do
         import Inspect.Algebra
 

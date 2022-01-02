@@ -42,5 +42,23 @@ defmodule Seurat.RgbTest do
         assert_colors_equal(expected, actual, color)
       end)
     end
+
+    test "to_cmy" do
+      Seurat.DataMineData.parse()
+      |> Enum.map(fn %{color: color, srgb: rgb, cmy: expected} ->
+        actual = Seurat.to_cmy(rgb)
+
+        assert_colors_equal(expected, actual, color)
+      end)
+    end
+
+    test "to_cmyk" do
+      Seurat.DataMineData.parse()
+      |> Enum.map(fn %{color: color, srgb: rgb, cmyk: expected} ->
+        actual = Seurat.to_cmyk(rgb)
+
+        assert_colors_equal(expected, actual, color)
+      end)
+    end
   end
 end

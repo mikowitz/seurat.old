@@ -23,6 +23,28 @@ defmodule Seurat.MixProject do
             Seurat.Rgb.Gamma,
             Seurat.Rgb.Linear,
             Seurat.Rgb.SRgb
+          ],
+          Subtractive: [
+            Seurat.Cmy,
+            Seurat.Cmyk
+          ],
+          Tristimulus: [
+            Seurat.Xyz
+          ],
+          "White Points": [
+            Seurat.WhitePoint,
+            Seurat.WhitePoint.D65
+          ],
+          Conversions: [
+            Seurat.Conversions.ToRgb,
+            Seurat.Conversions.ToHsv,
+            Seurat.Conversions.ToHsl,
+            Seurat.Conversions.ToCmy,
+            Seurat.Conversions.ToCmyk,
+            Seurat.Conversions.ToXyz
+          ],
+          Testing: [
+            Seurat.ColorTestCase
           ]
         ]
       ]

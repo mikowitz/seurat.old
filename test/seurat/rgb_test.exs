@@ -1,7 +1,5 @@
 defmodule Seurat.RgbTest do
-  use ExUnit.Case, async: true
-  use ExUnitProperties
-  import Seurat.ColorTestCase
+  use Seurat.ColorTestCase, async: true
 
   alias Seurat.Rgb
   alias Rgb.{Gamma, Linear, SRgb}
@@ -26,7 +24,7 @@ defmodule Seurat.RgbTest do
     end
 
     test "to_hsv" do
-      Seurat.DataMineData.parse()
+      ColorMine.parse()
       |> Enum.map(fn %{color: color, srgb: rgb, hsv: expected} ->
         actual = Seurat.to_hsv(rgb)
 
@@ -35,7 +33,7 @@ defmodule Seurat.RgbTest do
     end
 
     test "to_hsl" do
-      Seurat.DataMineData.parse()
+      ColorMine.parse()
       |> Enum.map(fn %{color: color, srgb: rgb, hsl: expected} ->
         actual = Seurat.to_hsl(rgb)
 
@@ -44,7 +42,7 @@ defmodule Seurat.RgbTest do
     end
 
     test "to_cmy" do
-      Seurat.DataMineData.parse()
+      ColorMine.parse()
       |> Enum.map(fn %{color: color, srgb: rgb, cmy: expected} ->
         actual = Seurat.to_cmy(rgb)
 
@@ -53,11 +51,22 @@ defmodule Seurat.RgbTest do
     end
 
     test "to_cmyk" do
-      Seurat.DataMineData.parse()
+      ColorMine.parse()
       |> Enum.map(fn %{color: color, srgb: rgb, cmyk: expected} ->
         actual = Seurat.to_cmyk(rgb)
 
         assert_colors_equal(expected, actual, color)
+      end)
+    end
+
+    test "to_xyz" do
+      ColorMine.parse()
+      |> Enum.map(fn %{color: color, linear_rgb: lin_rgb, srgb: srgb, xyz: expected} ->
+        srgb_actual = Seurat.to_xyz(srgb)
+        lin_actual = Seurat.to_xyz(lin_rgb)
+
+        assert_colors_equal(expected, srgb_actual, color)
+        assert_colors_equal(expected, lin_actual, color)
       end)
     end
   end

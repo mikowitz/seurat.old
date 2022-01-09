@@ -17,7 +17,7 @@ defmodule Seurat.CmyTest do
     end
 
     test "to_rgb" do
-      Seurat.DataMineData.parse()
+      ColorMine.parse()
       |> Enum.map(fn %{color: color, srgb: expected, cmy: cmy} ->
         actual = Seurat.to_rgb(cmy)
 
@@ -26,7 +26,7 @@ defmodule Seurat.CmyTest do
     end
 
     test "to_cmyk" do
-      Seurat.DataMineData.parse()
+      ColorMine.parse()
       |> Enum.map(fn %{color: color, cmyk: expected, cmy: cmy} ->
         actual = Seurat.to_cmyk(cmy)
 

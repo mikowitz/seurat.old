@@ -9,7 +9,7 @@ defmodule Seurat.Xyz do
 
   In addition to the X, Y, and Z fields, it also requires a standard illuminant
   and observer to be specified, defined jointly as the color's "white point".
-  By default, the illuminant and observer are D65 for 2 degree observer. This
+  By default, the illuminant and observer are D65 for 2° observer. This
   illuminant is intended to represent average daylight. See
   [this Wikipedia article](https://en.wikipedia.org/wiki/Standard_illuminant)
   for a full discussion of standard illuminants.
@@ -24,7 +24,7 @@ defmodule Seurat.Xyz do
     Its range alse depends on the white point, but for D65 ranges from 0.0 to
     1.08883.
   * `white_point` - the white point representing the color's illuminant and
-    observer. By default this is D65 for 2 degree observer
+    observer. By default this is D65 for 2° observer
 
   ## Conversions
 
@@ -89,6 +89,19 @@ defmodule Seurat.Xyz do
 
     defp calculate_color(x, y, z, a, b, c) do
       x * a + y * b + z * c
+    end
+  end
+
+  defimpl Seurat.Conversions.ToYxy do
+    def to_yxy(%{x: x, y: y, z: z, white_point: white_point}) do
+      if x + y + z == 0 do
+        Seurat.Yxy.new(0, 0, 0, white_point)
+      else
+        yxy_x = x / (x + y + z)
+        yxy_y = y / (x + y + z)
+        luma = y
+        Seurat.Yxy.new(yxy_x, yxy_y, luma, white_point)
+      end
     end
   end
 

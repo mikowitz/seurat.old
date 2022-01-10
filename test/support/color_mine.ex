@@ -35,7 +35,8 @@ defmodule Seurat.ColorMine do
         hsl: Seurat.Hsl.new(row.hsl_h, row.hsl_s, row.hsl_l),
         cmy: Seurat.Cmy.new(row.cmy_c, row.cmy_m, row.cmy_y),
         cmyk: Seurat.Cmyk.new(row.cmyk_c, row.cmyk_m, row.cmyk_y, row.cmyk_k),
-        xyz: Seurat.Xyz.new(row.xyz_x, row.xyz_y, row.xyz_z)
+        xyz: Seurat.Xyz.new(row.xyz_x, row.xyz_y, row.xyz_z),
+        yxy: Seurat.Yxy.new(row.yxy_x, row.yxy_y, row.yxy_luma)
       }
     end)
   end

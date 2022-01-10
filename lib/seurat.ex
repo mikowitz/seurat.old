@@ -30,4 +30,5 @@ defmodule Seurat do
   defdelegate to_cmy(color), to: Seurat.Conversions.ToCmy
   defdelegate to_cmyk(color), to: Seurat.Conversions.ToCmyk
   defdelegate to_xyz(color), to: Seurat.Conversions.ToXyz
+  defdelegate to_yxy(color), to: Seurat.Conversions.ToYxy
 end

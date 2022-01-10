@@ -25,5 +25,14 @@ defmodule Seurat.XyzTest do
         assert_colors_equal(expected, actual, color)
       end)
     end
+
+    test "to_yxy" do
+      ColorMine.parse()
+      |> Enum.map(fn %{color: color, yxy: expected, xyz: xyz} ->
+        actual = Seurat.to_yxy(xyz)
+
+        assert_colors_equal(expected, actual, color)
+      end)
+    end
   end
 end

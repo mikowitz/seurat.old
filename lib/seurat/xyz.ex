@@ -105,6 +105,70 @@ defmodule Seurat.Xyz do
     end
   end
 
+  defimpl Seurat.Conversions.ToLab do
+    @e 0.008856
+    @k 903.3
+
+    def to_lab(%{x: x, y: y, z: z, white_point: wp}) do
+      xr = x / wp.x()
+      yr = y / wp.y()
+      zr = z / wp.z()
+
+      fx = calculate_intermediary(xr)
+      fy = calculate_intermediary(yr)
+      fz = calculate_intermediary(zr)
+
+      l = 116 * fy - 16
+      a = 500 * (fx - fy)
+      b = 200 * (fy - fz)
+
+      Seurat.Lab.new(l, a, b, wp)
+    end
+
+    defp calculate_intermediary(n) do
+      if n > @e do
+        :math.pow(n, 1 / 3)
+      else
+        (@k * n + 16) / 116
+      end
+    end
+  end
+
+  defimpl Seurat.Conversions.ToLuv do
+    @e 0.008856
+    @k 903.3
+
+    def to_luv(%{x: x, y: y, z: z, white_point: wp}) do
+      xr = wp.x()
+      yr = wp.y()
+      zr = wp.z()
+
+      denom_r = xr + 15 * yr + 3 * zr
+
+      v_prime_r = 9 * yr / denom_r
+      u_prime_r = 4 * xr / denom_r
+
+      denom = x + 15 * y + 3 * z
+
+      v_prime = 9 * y / denom
+      u_prime = 4 * x / denom
+
+      y_r = y / yr
+
+      l =
+        if y_r > @e do
+          116 * :math.pow(y_r, 1 / 3) - 16
+        else
+          @k * y_r
+        end
+
+      u = 13 * l * (u_prime - u_prime_r)
+      v = 13 * l * (v_prime - v_prime_r)
+
+      Seurat.Luv.new(l, u, v, wp)
+    end
+  end
+
   defimpl Inspect do
     import Inspect.Algebra
 

@@ -36,7 +36,9 @@ defmodule Seurat.ColorMine do
         cmy: Seurat.Cmy.new(row.cmy_c, row.cmy_m, row.cmy_y),
         cmyk: Seurat.Cmyk.new(row.cmyk_c, row.cmyk_m, row.cmyk_y, row.cmyk_k),
         xyz: Seurat.Xyz.new(row.xyz_x, row.xyz_y, row.xyz_z),
-        yxy: Seurat.Yxy.new(row.yxy_x, row.yxy_y, row.yxy_luma)
+        yxy: Seurat.Yxy.new(row.yxy_x, row.yxy_y, row.yxy_luma),
+        lab: Seurat.Lab.new(row.lab_l_unscaled, row.lab_a_unscaled, row.lab_b_unscaled),
+        luv: Seurat.Luv.new(row.luv_l, row.luv_u, row.luv_v)
       }
     end)
   end
